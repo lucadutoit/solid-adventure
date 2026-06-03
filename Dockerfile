@@ -1,6 +1,8 @@
 FROM php:8.2-apache
 
-RUN docker-php-ext-install pdo pdo_mysql && a2enmod rewrite
+RUN a2dismod mpm_event mpm_worker || true \
+    && a2enmod mpm_prefork rewrite \
+    && docker-php-ext-install pdo pdo_mysql
 
 COPY . /var/www/html/swift-swap/
 
