@@ -11,7 +11,10 @@
       <div class="search-layout">
 
         <aside>
-          <div class="filter-box">
+          <button class="filter-toggle-btn" id="filter-toggle-btn">
+            <i class="fa-solid fa-sliders"></i> Filters
+          </button>
+          <div class="filter-box" id="filter-box">
             <form id="filter-form">
               <div class="filter-title">Category</div>
               <select id="filter-category" name="category" style="margin-bottom:0.75rem">
@@ -81,6 +84,16 @@
     if (q) {
       document.getElementById('search-heading').textContent = `Results for "${q}"`;
       document.querySelectorAll('.search-q-input').forEach(el => el.value = q);
+    }
+    const filterToggle = document.getElementById('filter-toggle-btn');
+    const filterBox    = document.getElementById('filter-box');
+    if (filterToggle && filterBox) {
+      filterToggle.addEventListener('click', () => {
+        const open = filterBox.classList.toggle('open');
+        filterToggle.innerHTML = open
+          ? '<i class="fa-solid fa-xmark"></i> Hide Filters'
+          : '<i class="fa-solid fa-sliders"></i> Filters';
+      });
     }
   </script>
 </body>

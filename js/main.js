@@ -105,6 +105,57 @@ function renderNavbar() {
   }
 
   document.getElementById('theme-toggle').addEventListener('click', () => Theme.toggle());
+
+  // ── Mobile nav ──────────────────────────────────────────
+  const mobileLinks = document.getElementById('mobile-nav-links');
+  if (mobileLinks) {
+    if (Auth.isLoggedIn) {
+      mobileLinks.innerHTML = `
+        <a href="/swift-swap/pages/dashboard.php" class="mobile-nav-link"><i class="fa-solid fa-gauge" style="width:1.1rem"></i> Dashboard</a>
+        <a href="/swift-swap/pages/messages.php" class="mobile-nav-link"><i class="fa-solid fa-comments" style="width:1.1rem"></i> Messages</a>
+        <a href="/swift-swap/pages/meetup-spots.php" class="mobile-nav-link"><i class="fa-solid fa-shield-halved" style="width:1.1rem"></i> Safe Spots</a>
+        ${Auth.canSell ? `<a href="/swift-swap/pages/create-listing.php" class="mobile-nav-link sell"><i class="fa-solid fa-plus" style="width:1.1rem"></i> Sell an Item</a>` : ''}
+        ${Auth.user?.is_admin ? `<a href="/swift-swap/pages/admin.php" class="mobile-nav-link" style="color:var(--danger)"><i class="fa-solid fa-shield-halved" style="width:1.1rem"></i> Admin Panel</a>` : ''}
+        <hr class="divider" style="margin:0.5rem 0">
+        <button class="mobile-nav-link" id="mobile-logout-btn"><i class="fa-solid fa-right-from-bracket" style="width:1.1rem"></i> Log out</button>
+      `;
+      document.getElementById('mobile-logout-btn')?.addEventListener('click', () => Auth.logout());
+    } else {
+      mobileLinks.innerHTML = `
+        <a href="/swift-swap/pages/login.php" class="mobile-nav-link"><i class="fa-solid fa-right-to-bracket" style="width:1.1rem"></i> Log in</a>
+        <a href="/swift-swap/pages/register.php" class="mobile-nav-link sell"><i class="fa-solid fa-user-plus" style="width:1.1rem"></i> Sign up</a>
+        <a href="/swift-swap/pages/meetup-spots.php" class="mobile-nav-link"><i class="fa-solid fa-shield-halved" style="width:1.1rem"></i> Safe Spots</a>
+      `;
+    }
+  }
+
+  const overlay    = document.getElementById('mobile-nav-overlay');
+  const hamburger  = document.getElementById('nav-hamburger');
+  const closeBtn   = document.getElementById('nav-hamburger-close');
+  if (overlay && hamburger) {
+    const openMenu  = () => { overlay.hidden = false; document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { overlay.hidden = true;  document.body.style.overflow = ''; };
+    hamburger.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeMenu(); });
+  }
+
+  const searchToggle   = document.getElementById('mobile-search-toggle');
+  const mobileSearchBar = document.getElementById('mobile-search-bar');
+  const mobileInput    = document.getElementById('mobile-search-input');
+  const mobileBtn      = document.getElementById('mobile-search-btn');
+  if (searchToggle && mobileSearchBar) {
+    searchToggle.addEventListener('click', () => {
+      mobileSearchBar.hidden = !mobileSearchBar.hidden;
+      if (!mobileSearchBar.hidden) mobileInput?.focus();
+    });
+    const doMobileSearch = () => {
+      const q = mobileInput?.value.trim();
+      if (q) location.href = `/swift-swap/pages/search.php?q=${encodeURIComponent(q)}`;
+    };
+    mobileBtn?.addEventListener('click', doMobileSearch);
+    mobileInput?.addEventListener('keydown', e => { if (e.key === 'Enter') doMobileSearch(); });
+  }
 }
 
 // ── Flash messages ──────────────────────────────────────────
