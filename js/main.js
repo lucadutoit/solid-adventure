@@ -133,21 +133,21 @@ function renderNavbar() {
   const hamburger  = document.getElementById('nav-hamburger');
   const closeBtn   = document.getElementById('nav-hamburger-close');
   if (overlay && hamburger) {
-    const openMenu  = () => { overlay.hidden = false; document.body.style.overflow = 'hidden'; };
-    const closeMenu = () => { overlay.hidden = true;  document.body.style.overflow = ''; };
+    const openMenu  = () => { overlay.classList.add('open');    document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { overlay.classList.remove('open'); document.body.style.overflow = ''; };
     hamburger.addEventListener('click', openMenu);
     closeBtn?.addEventListener('click', closeMenu);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeMenu(); });
   }
 
-  const searchToggle   = document.getElementById('mobile-search-toggle');
+  const searchToggle    = document.getElementById('mobile-search-toggle');
   const mobileSearchBar = document.getElementById('mobile-search-bar');
-  const mobileInput    = document.getElementById('mobile-search-input');
-  const mobileBtn      = document.getElementById('mobile-search-btn');
+  const mobileInput     = document.getElementById('mobile-search-input');
+  const mobileBtn       = document.getElementById('mobile-search-btn');
   if (searchToggle && mobileSearchBar) {
     searchToggle.addEventListener('click', () => {
-      mobileSearchBar.hidden = !mobileSearchBar.hidden;
-      if (!mobileSearchBar.hidden) mobileInput?.focus();
+      mobileSearchBar.classList.toggle('open');
+      if (mobileSearchBar.classList.contains('open')) mobileInput?.focus();
     });
     const doMobileSearch = () => {
       const q = mobileInput?.value.trim();

@@ -449,9 +449,11 @@ footer a:hover { color: #f97316; text-decoration: none; }
 .nav-icon-btn:hover { background: var(--gray-100); }
 
 .mobile-search-bar {
+  display: none;
   padding: 0.6rem 1rem; border-top: 1px solid var(--gray-200);
-  background: var(--white); display: flex; gap: 0;
+  background: var(--white); gap: 0;
 }
+.mobile-search-bar.open { display: flex; }
 .mobile-search-bar input {
   flex: 1; padding: 0.55rem 0.875rem; font-family: inherit; font-size: 0.9rem;
   border: 1.5px solid var(--gray-200); border-right: none; outline: none;
@@ -466,9 +468,11 @@ footer a:hover { color: #f97316; text-decoration: none; }
 }
 
 .mobile-nav-overlay {
+  display: none;
   position: fixed; inset: 0; background: rgba(0,0,0,0.55);
-  z-index: 300; display: flex; align-items: flex-start;
+  z-index: 300; align-items: flex-start;
 }
+.mobile-nav-overlay.open { display: flex; }
 .mobile-nav-panel {
   background: var(--white); width: min(280px, 85vw); height: 100%;
   overflow-y: auto; box-shadow: var(--shadow-lg);

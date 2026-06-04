@@ -11,13 +11,13 @@
       <button class="nav-icon-btn" id="nav-hamburger" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
-  <div class="mobile-search-bar" id="mobile-search-bar" hidden>
+  <div class="mobile-search-bar" id="mobile-search-bar">
     <input type="text" class="search-q-input" id="mobile-search-input" placeholder="Search listings…" autocomplete="off">
     <button id="mobile-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
   </div>
 </nav>
 
-<div class="mobile-nav-overlay" id="mobile-nav-overlay" hidden>
+<div class="mobile-nav-overlay" id="mobile-nav-overlay">
   <div class="mobile-nav-panel">
     <div class="mobile-nav-header">
       <a href="/swift-swap/" class="navbar-brand">Swift<span>Swap</span></a>
